@@ -3,7 +3,7 @@ import axios from 'axios'
 const url = 'http://localhost:8081/micro-posts/'
 
 class MicroPostsService {
-  static getMicroPosts() {
+  static getMicroPosts () {
     return new Promise(async (resolve, reject) => {
       try {
         const serverResponse = await axios.get(url)
@@ -18,7 +18,7 @@ class MicroPostsService {
     })
   }
 
-  static insertMicroPost(text) {
+  static insertMicroPost (text) {
     return axios.post(url, {
       text
     })

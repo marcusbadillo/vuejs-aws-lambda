@@ -21,24 +21,24 @@
 </template>
 
 <script>
-import MicroPostService from "../services/MicroPostsService";
+import MicroPostService from '../services/MicroPostsService'
 
 export default {
-  name: "HelloWorld",
-  data() {
+  name: 'HelloWorld',
+  data () {
     return {
       microPosts: [],
-      error: ""
-    };
+      error: ''
+    }
   },
-  async created() {
+  async created () {
     try {
-      this.microPosts = await MicroPostService.getMicroPosts();
+      this.microPosts = await MicroPostService.getMicroPosts()
     } catch (error) {
-      this.error = error.message;
+      this.error = error.message
     }
   }
-};
+}
 </script>
 <style scoped>
 div.container {
