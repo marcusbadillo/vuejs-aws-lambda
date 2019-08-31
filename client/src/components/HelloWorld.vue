@@ -29,30 +29,30 @@
 </template>
 
 <script>
-  import MicroPostService from '../services/MicroPostsService'
-  import auth0Client from '../services/AuthService'
-  export default {
-    name: 'HelloWorld',
-    data() {
-      return {
-        microPosts: [],
-        error: '',
-        profile: null
-      }
-    },
-    async created() {
-      try {
-        this.microPosts = await MicroPostService.getMicroPosts()
-        this.profile = auth0Client.getProfile()
-      } catch (error) {
-        this.error = error.message
-      }
-    },
-    methods: {
-      signIn: auth0Client.signIn,
-      signOut: auth0Client.signOut
+import MicroPostService from '../services/MicroPostsService'
+import auth0Client from '../services/AuthService'
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      microPosts: [],
+      error: '',
+      profile: null
     }
+  },
+  async created () {
+    try {
+      this.microPosts = await MicroPostService.getMicroPosts()
+      this.profile = auth0Client.getProfile()
+    } catch (error) {
+      this.error = error.message
+    }
+  },
+  methods: {
+    signIn: auth0Client.signIn,
+    signOut: auth0Client.signOut
   }
+}
 
 </script>
 <style scoped>
