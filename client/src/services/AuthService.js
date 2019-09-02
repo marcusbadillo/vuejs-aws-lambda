@@ -3,11 +3,10 @@ import auth0 from 'auth0-js'
 class Auth {
   constructor () {
     this.auth0 = new auth0.WebAuth({
-      // the following three lines MUST be updated
-      domain: 'dev-n-q503wt.auth0.com',
+      domain: process.env.AUTH0_DOMAIN,
       audience: 'https://micro-blog-app',
-      clientID: '2ybW760UMsTmNHNZSj8xBoj11svlDtlI',
-      redirectUri: `http://localhost:8080/callback`,
+      clientID: process.env.AUTH0_CLIENT_ID,
+      redirectUri: process.env.AUTH0_CALLBACK_URL,
       responseType: 'token id_token',
       scope: 'openid profile'
     })

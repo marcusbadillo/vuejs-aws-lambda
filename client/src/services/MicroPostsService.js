@@ -1,7 +1,7 @@
 import axios from 'axios'
 import auth0Client from './AuthService'
 
-const url = 'http://localhost:8081/micro-posts/'
+const url = process.env.BACKEND_URL
 
 class MicroPostsService {
   static getMicroPosts () {
