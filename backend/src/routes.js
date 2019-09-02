@@ -3,22 +3,24 @@ const MongoClient = require('mongodb').MongoClient;
 const auth0 = require('auth0');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL } = process.env;
+
 
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://dev-n-q503wt.auth0.com/.well-known/jwks.json'
+    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
   // Validate the audience and the issuer.
   audience: 'https://micro-blog-app',
-  issuer: 'https://dev-n-q503wt.auth0.com/',
+  issuer: `https://${AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 });
 
 async function loadMicroPostsCollection () {
-  const client = await MongoClient.connect('mongodb://localhost:27017/', {
+  const client = await MongoClient.connect(MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
@@ -44,8 +46,8 @@ router.post('/', checkJwt, async (req, res) => {
     .replace('Bearer ', '');
 
   const authClient = new auth0.AuthenticationClient({
-    domain: `dev-n-q503wt.auth0.com`,
-    clientId: '2ybW760UMsTmNHNZSj8xBoj11svlDtlI',
+    domain: AUTH0_DOMAIN,
+    clientId: AUTH0_CLIENT_ID,
   });
 
   authClient.getProfile(token, async (err, userInfo) => {
